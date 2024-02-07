@@ -1,26 +1,29 @@
+<script setup>
+import { collection, getDocs } from 'firebase/firestore/lite';
+import db from './firebase/firebase'
+</script>
+
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <CreationForm />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CreationForm from './components/CreationForm.vue'
+
+console.log('hellow')
+const test = async (db) => {
+  const testCol = collection(db, 'test')
+  const testSnapshot = await getDocs(testCol)
+  const testList = testSnapshot.docs.map(doc => doc.data())
+  console.log(testList)
+}
+
+test(db)
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    CreationForm
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
